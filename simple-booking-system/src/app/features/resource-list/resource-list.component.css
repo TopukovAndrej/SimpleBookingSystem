@@ -1,0 +1,33 @@
+.header-container, .table-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.mat-column-id {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.mat-column-name {
+  padding-left: 16px;
+  font-size: 15px;
+  border-right: 1px solid currentColor;
+}
+
+.mat-column-book {
+  width: 100px;
+  font-size: 15px;
+  border-right: 1px solid currentColor;
+  text-align: center;
+}
+
+.table-header-cell {
+  background-color: cadetblue !important;
+}
+
+.book-button {
+  width: 80px;
+}
