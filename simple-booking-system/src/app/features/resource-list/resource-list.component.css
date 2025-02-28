@@ -31,3 +31,7 @@
 .book-button {
   width: 80px;
 }
+
+.table-row:nth-child(even) {
+  background-color: rgb(186, 245, 238);
+}
