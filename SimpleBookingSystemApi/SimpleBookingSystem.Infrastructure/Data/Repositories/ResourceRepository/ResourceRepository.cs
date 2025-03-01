@@ -1,6 +1,6 @@
 ﻿namespace SimpleBookingSystem.Infrastructure.Data.Repositories.ResourceRepository
 {
-    using SimpleBookingSystem.Infrastructure.Interfaces;
+    using SimpleBookingSystem.Infrastructure.Common.Interfaces;
     using System.Threading.Tasks;
 
     public class ResourceRepository : IResourceRepository

@@ -2,8 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using SimpleBookingSystem.Infrastructure.Common.Configurations;
+    using SimpleBookingSystem.Infrastructure.Common.Interfaces;
     using SimpleBookingSystem.Infrastructure.Data.Models;
-    using SimpleBookingSystem.Infrastructure.Interfaces;
 
     public class SimpleBookingSystemReadonlyDbContext : DbContext, ISimpleBookingSystemReadonlyDbContext
     {

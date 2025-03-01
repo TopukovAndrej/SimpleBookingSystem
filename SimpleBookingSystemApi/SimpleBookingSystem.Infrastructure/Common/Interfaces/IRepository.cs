@@ -1,4 +1,4 @@
-﻿namespace SimpleBookingSystem.Infrastructure.Interfaces
+﻿namespace SimpleBookingSystem.Infrastructure.Common.Interfaces
 {
     public interface IRepository<T>
     {

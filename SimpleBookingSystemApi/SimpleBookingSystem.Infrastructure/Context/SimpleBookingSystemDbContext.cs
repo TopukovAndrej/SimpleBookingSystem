@@ -1,8 +1,8 @@
 ﻿namespace SimpleBookingSystem.Infrastructure.Context
 {
     using Microsoft.EntityFrameworkCore;
+    using SimpleBookingSystem.Infrastructure.Common.Interfaces;
     using SimpleBookingSystem.Infrastructure.Data.Models;
-    using SimpleBookingSystem.Infrastructure.Interfaces;
     using System.Threading.Tasks;
 
     public class SimpleBookingSystemDbContext : DbContext, ISimpleBookingSystemDbContext

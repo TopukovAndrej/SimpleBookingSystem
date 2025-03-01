@@ -3,8 +3,8 @@ namespace SimpleBookingSystem.API
     using Microsoft.EntityFrameworkCore;
     using SimpleBookingSystem.Application;
     using SimpleBookingSystem.Contracts;
+    using SimpleBookingSystem.Infrastructure.Common.Interfaces;
     using SimpleBookingSystem.Infrastructure.Context;
-    using SimpleBookingSystem.Infrastructure.Interfaces;
 
     public class Program
     {
