@@ -1,6 +1,0 @@
-@SimpleBookingSystem_HostAddress = http://localhost:5173
-
-GET {{SimpleBookingSystem_HostAddress}}/api/resources/all
-Accept: application/json
-
-###
