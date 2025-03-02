@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { IResourceDto } from '../../shared/interfaces/resource.interface';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BookResourceModalComponent } from '../book-resource-modal/book-resource-modal.component';
 import { HttpService } from '../../core';
 import { Subscription, take } from 'rxjs';
 
@@ -18,7 +20,10 @@ export class ResourceListComponent implements OnInit, OnDestroy {
 
   private fetchResources$: Subscription | undefined;
 
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly dialog: MatDialog
+  ) {}
 
   public ngOnInit(): void {
     this.fetchResources$ = this.httpService
@@ -33,7 +38,10 @@ export class ResourceListComponent implements OnInit, OnDestroy {
     this.fetchResources$?.unsubscribe();
   }
 
-  public bookResource(resource: IResourceDto): void {
-    console.log('I can book');
+  public openBookResourceModal(resourceName: string): void {
+    const dialogRef: MatDialogRef<BookResourceModalComponent> =
+      this.dialog.open(BookResourceModalComponent, {
+        data: { resourceName: resourceName },
+      });
   }
 }
