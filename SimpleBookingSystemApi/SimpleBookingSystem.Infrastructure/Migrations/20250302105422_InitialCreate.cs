@@ -35,26 +35,26 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Uid = table.Column<Guid>(type: "TEXT", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    BookedQuantity = table.Column<int>(type: "INTEGER", nullable: false),
                     FromDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ToDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ResourceFk = table.Column<int>(type: "INTEGER", nullable: false),
-                    ResourceId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ResourceFk = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bookings_Resources_ResourceId",
-                        column: x => x.ResourceId,
+                        name: "FK_Bookings_Resources_ResourceFk",
+                        column: x => x.ResourceFk,
                         principalTable: "Resources",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_ResourceId",
+                name: "IX_Bookings_ResourceFk",
                 table: "Bookings",
-                column: "ResourceId");
+                column: "ResourceFk");
         }
 
         /// <inheritdoc />

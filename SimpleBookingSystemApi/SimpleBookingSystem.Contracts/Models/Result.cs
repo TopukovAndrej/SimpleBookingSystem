@@ -14,9 +14,9 @@
             ErrorMessage = errorMessage;
         }
 
-        public static Result Success() => new(isSuccess: true, errorMessage: string.Empty);
+        public static Result Success() => new(isSuccess: true, errorMessage: null);
 
-        public static Result Failed(string errorMessage) => new(isSuccess: false, errorMessage: errorMessage);
+        public static Result Failed(string? errorMessage) => new(isSuccess: false, errorMessage: errorMessage);
     }
 
     public class Result<T> : Result
@@ -29,6 +29,6 @@
 
         public static Result<T> Success(T value) => new(value: value);
 
-        public static new Result<T> Failed(string errorMessage) => new(errorMessage: errorMessage);
+        public static new Result<T> Failed(string? errorMessage) => new(errorMessage: errorMessage);
     }
 }

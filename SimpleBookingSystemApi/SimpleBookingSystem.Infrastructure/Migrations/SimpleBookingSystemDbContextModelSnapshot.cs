@@ -23,6 +23,9 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("BookedQuantity")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("TEXT");
 
@@ -45,7 +48,7 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
 
                     b.HasIndex("ResourceId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("SimpleBookingSystem.Infrastructure.Data.Models.Resource", b =>
@@ -69,7 +72,7 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Resources");
+                    b.ToTable("Resources", (string)null);
                 });
 
             modelBuilder.Entity("SimpleBookingSystem.Infrastructure.Data.Models.Booking", b =>

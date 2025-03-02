@@ -5,7 +5,7 @@ namespace SimpleBookingSystem.Tests.Queries
     using SimpleBookingSystem.Application.Queries.Resource;
     using SimpleBookingSystem.Contracts.Dtos.Resource;
     using SimpleBookingSystem.Contracts.Models;
-    using SimpleBookingSystem.Infrastructure.Common.Interfaces;
+    using SimpleBookingSystem.Infrastructure.Context;
     using SimpleBookingSystem.Infrastructure.Data.Models;
     using System.Collections.Generic;
     using System.Linq;

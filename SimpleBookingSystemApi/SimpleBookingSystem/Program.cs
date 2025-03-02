@@ -3,8 +3,8 @@ namespace SimpleBookingSystem.API
     using Microsoft.EntityFrameworkCore;
     using SimpleBookingSystem.Application;
     using SimpleBookingSystem.Contracts;
-    using SimpleBookingSystem.Infrastructure.Common.Interfaces;
     using SimpleBookingSystem.Infrastructure.Context;
+    using SimpleBookingSystem.Infrastructure.Data.Repositories.ResourceRepository;
 
     public class Program
     {
@@ -20,6 +20,8 @@ namespace SimpleBookingSystem.API
 
             builder.Services.AddDbContext<SimpleBookingSystemDbContext>(optionsAction: options => options.UseSqlite(connectionString: dbConnectionString));
             builder.Services.AddScoped<ISimpleBookingSystemDbContext, SimpleBookingSystemDbContext>();
+
+            builder.Services.AddScoped<IResourceRepository, ResourceRepository>();
 
             builder.Services.AddCors(setupAction: options =>
             {

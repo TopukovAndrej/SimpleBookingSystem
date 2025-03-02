@@ -6,27 +6,22 @@
     {
         public static Resource MapResourceDomainToData(Domain.Entities.Resources.Resource domainResource)
         {
-            return new()
-            {
-                Id = domainResource.Id,
-                Uid = domainResource.Uid,
-                IsDeleted = domainResource.IsDeleted,
-                Name = domainResource.Name,
-                TotalQuantity = domainResource.TotalQuantity,
-            };
+            return new(id: domainResource.Id,
+                       uid: domainResource.Uid,
+                       isDeleted: domainResource.IsDeleted,
+                       name: domainResource.Name,
+                       totalQuantity: domainResource.TotalQuantity);
         }
 
         public static Booking MapBookingDomainToData(Domain.Entities.Resources.Booking domainBooking)
         {
-            return new()
-            {
-                Id = domainBooking.Id,
-                Uid = domainBooking.Uid,
-                IsDeleted = domainBooking.IsDeleted,
-                FromDate = domainBooking.BookingPeriod.FromDate,
-                ToDate = domainBooking.BookingPeriod.ToDate,
-                ResourceFk = domainBooking.ResourceFk,
-            };
+            return new(id: domainBooking.Id,
+                       uid: domainBooking.Uid,
+                       isDeleted: domainBooking.IsDeleted,
+                       bookedQuantity: domainBooking.BookedQuantity,
+                       fromDate: domainBooking.BookingDuration.FromDate,
+                       toDate: domainBooking.BookingDuration.ToDate,
+                       resourceFk: domainBooking.BookingResource.ResourceId);
         }
     }
 }

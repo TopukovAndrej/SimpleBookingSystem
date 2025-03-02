@@ -11,7 +11,7 @@ using SimpleBookingSystem.Infrastructure.Context;
 namespace SimpleBookingSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(SimpleBookingSystemDbContext))]
-    [Migration("20250301144951_InitialCreate")]
+    [Migration("20250302105422_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,9 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BookedQuantity")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("FromDate")

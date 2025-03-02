@@ -16,7 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SimpleBookingSystem.Contracts\SimpleBookingSystem.Contracts.csproj" />
     <ProjectReference Include="..\SimpleBookingSystem.Domain\SimpleBookingSystem.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Database\" />
   </ItemGroup>
 
 </Project>

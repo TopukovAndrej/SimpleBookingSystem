@@ -13,5 +13,16 @@
         public int TotalQuantity { get; internal set; }
 
         public virtual ICollection<Booking> Bookings { get; internal set; }
+
+        private Resource() { }
+
+        public Resource(int id, Guid uid, bool isDeleted, string name, int totalQuantity)
+        {
+            Id = id;
+            Uid = uid;
+            IsDeleted = isDeleted;
+            Name = name;
+            TotalQuantity = totalQuantity;
+        }
     }
 }

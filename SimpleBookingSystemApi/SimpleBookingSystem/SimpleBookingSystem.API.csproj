@@ -21,8 +21,4 @@
     <ProjectReference Include="..\SimpleBookingSystem.Infrastructure\SimpleBookingSystem.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Database\" />
-  </ItemGroup>
-
 </Project>

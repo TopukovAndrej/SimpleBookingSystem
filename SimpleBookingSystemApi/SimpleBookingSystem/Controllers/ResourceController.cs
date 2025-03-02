@@ -1,8 +1,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SimpleBookingSystem.Application.Commands.Resource;
 using SimpleBookingSystem.Application.Queries.Resource;
 using SimpleBookingSystem.Contracts.Dtos.Resource;
 using SimpleBookingSystem.Contracts.Models;
+using SimpleBookingSystem.Contracts.Requests.Resource;
 
 namespace SimpleBookingSystem.API.Controllers;
 
@@ -24,5 +26,19 @@ public class ResourceController(IMediator mediator) : ControllerBase
         {
             return NotFound(value: queryResult.ErrorMessage);
         }
+    }
+
+    [HttpPost]
+    [Route("book-resource")]
+    public async Task<IActionResult> BookResourceAsync([FromBody] BookResourceRequest request)
+    {
+        Result commandResult = await mediator.Send(request: new BookResourceCommand(request: request));
+
+        if (commandResult.IsSuccess)
+        {
+            return Ok();
+        }
+
+        return BadRequest();
     }
 }

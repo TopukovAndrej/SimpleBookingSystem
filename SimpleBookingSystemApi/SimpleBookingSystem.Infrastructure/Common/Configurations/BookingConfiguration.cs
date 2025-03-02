@@ -15,9 +15,8 @@
             builder.Property(x => x.IsDeleted).HasColumnType("BIT").HasDefaultValue(false);
             builder.Property(x => x.FromDate).HasColumnType("DATETIME2(0)").IsRequired();
             builder.Property(x => x.ToDate).HasColumnType("DATETIME2(0)").IsRequired();
+            builder.Property(x => x.BookedQuantity).HasColumnType("INT").IsRequired();
             builder.Property(x => x.ResourceFk).HasColumnType("INT").IsRequired();
-
-            builder.HasOne(x => x.Resource).WithMany(x => x.Bookings).HasForeignKey(x => x.ResourceFk);
         }
     }
 }

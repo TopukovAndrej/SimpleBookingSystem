@@ -1,5 +1,6 @@
 ﻿namespace SimpleBookingSystem.Domain.Entities.Resources
 {
+    using SimpleBookingSystem.Contracts.Models;
     using SimpleBookingSystem.Domain.Common.Entities;
 
     public class Resource : AggregateRoot
@@ -12,6 +13,20 @@
         {
             Name = name;
             TotalQuantity = totalQuality;
+        }
+
+        public Result UpdateTotalQuantity(int bookedQuantity)
+        {
+            int updatedQuantity = TotalQuantity - bookedQuantity;
+
+            if (updatedQuantity < 0)
+            {
+                return Result.Failed(errorMessage: "Resource quantity is less than zero!");
+            }
+
+            TotalQuantity = updatedQuantity;
+
+            return Result.Success();
         }
     }
 }

@@ -1,24 +1,54 @@
 ﻿namespace SimpleBookingSystem.Domain.Entities.Resources
 {
+    using SimpleBookingSystem.Contracts.Models;
     using SimpleBookingSystem.Domain.Common.Entities;
     using SimpleBookingSystem.Domain.Entities.Resources.ValueObjects;
 
     public class Booking : Entity
     {
-        public BookingPeriod BookingPeriod { get; private set; }
+        public int BookedQuantity { get; private set; }
 
-        public int ResourceFk { get; private set; }
+        public BookingDuration BookingDuration { get; private set; }
 
-        public Booking(int id,
-                       Guid uid,
-                       bool isDeleted,
-                       DateTime bookedFromDate,
-                       DateTime bookedToDate,
-                       int resourceFk) : base(id: id, uid: uid, isDeleted: isDeleted)
+        public BookingResource BookingResource { get; private set; }
+
+        private Booking(int id,
+                        Guid uid,
+                        bool isDeleted,
+                        int bookedQuantity,
+                        BookingDuration bookingDuration,
+                        BookingResource bookingResource) : base(id: id, uid: uid, isDeleted: isDeleted)
         {
-            BookingPeriod = new(fromDate: bookedFromDate, toDate: bookedToDate);
+            BookedQuantity = bookedQuantity;
+            BookingResource = bookingResource;
+            BookingDuration = bookingDuration;
+        }
 
-            ResourceFk = resourceFk;
+        public static Result<Booking> Create(int id,
+                                             Guid uid,
+                                             bool isDeleted,
+                                             int bookedQuantity,
+                                             DateTime bookingDurationFromDate,
+                                             DateTime bookingDurationToDate,
+                                             int resourceId,
+                                             string resourceName)
+        {
+            Result<BookingDuration> bookingDurationResult = BookingDuration.Create(fromDate: bookingDurationFromDate,
+                                                                                   toDate: bookingDurationToDate);
+
+            if (bookingDurationResult.IsFailure)
+            {
+                return Result<Booking>.Failed(errorMessage: bookingDurationResult.ErrorMessage);
+            }
+
+            BookingResource bookingResource = new(resourceId: resourceId, resourceName: resourceName);
+
+            return Result<Booking>.Success(value: new Booking(id: id,
+                                                              uid: uid,
+                                                              isDeleted: isDeleted,
+                                                              bookedQuantity: bookedQuantity,
+                                                              bookingDuration: bookingDurationResult.Value!,
+                                                              bookingResource: bookingResource));
         }
     }
 }

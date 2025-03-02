@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using SimpleBookingSystem.Contracts.Dtos.Resource;
     using SimpleBookingSystem.Contracts.Models;
-    using SimpleBookingSystem.Infrastructure.Common.Interfaces;
+    using SimpleBookingSystem.Infrastructure.Context;
     using System.Threading;
     using System.Threading.Tasks;
 
