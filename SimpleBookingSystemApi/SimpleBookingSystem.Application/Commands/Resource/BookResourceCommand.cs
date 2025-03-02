@@ -22,7 +22,7 @@
 
     public class BookResourceCommandHandler(IMediator mediator, IResourceRepository resourceRepository) : IRequestHandler<BookResourceCommand, Result>
     {
-        public async Task<Result> Handle(BookResourceCommand command, CancellationToken cancellationToken)
+        public async Task<Result> Handle(BookResourceCommand command, CancellationToken cancellationToken = default)
         {
             if (command.Request.Quantity < 0)
             {

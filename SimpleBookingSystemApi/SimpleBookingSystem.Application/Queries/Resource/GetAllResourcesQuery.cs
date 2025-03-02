@@ -15,7 +15,7 @@
 
     public class GetAllResourcesQueryHandler(ISimpleBookingSystemReadonlyDbContext dbContext) : IRequestHandler<GetAllResourcesQuery, Result<IReadOnlyList<ResourceDto>>>
     {
-        public async Task<Result<IReadOnlyList<ResourceDto>>> Handle(GetAllResourcesQuery query, CancellationToken cancellationToken)
+        public async Task<Result<IReadOnlyList<ResourceDto>>> Handle(GetAllResourcesQuery query, CancellationToken cancellationToken = default)
         {
             List<ResourceDto> result = await dbContext.Resources.Where(predicate: x => !x.IsDeleted)
                                                                 .Select(selector: x => new ResourceDto() { Id = x.Id, Name = x.Name, TotalQuantity = x.TotalQuantity })

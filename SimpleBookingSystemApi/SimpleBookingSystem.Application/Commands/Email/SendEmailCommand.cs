@@ -16,7 +16,7 @@
 
     public class SendEmailCommandHandler : IRequestHandler<SendEmailCommand>
     {
-        public async Task Handle(SendEmailCommand command, CancellationToken cancellationToken)
+        public async Task Handle(SendEmailCommand command, CancellationToken cancellationToken = default)
         {
             // Mocking the sending of the email as specified
             Console.WriteLine(value: $"EMAIL SENT TO {command.Email} FOR CREATED BOOKING WITH ID {command.ResourceId}.");
