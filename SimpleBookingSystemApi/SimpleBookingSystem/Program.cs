@@ -37,7 +37,7 @@ namespace SimpleBookingSystem.API
             builder.Services.AddMediatR(configuration: cfg =>
             {
                 cfg.RegisterGenericHandlers = true;
-                cfg.RegisterServicesFromAssemblies(typeof(ContractsServiceRegistration).Assembly, typeof(ApplicationServiceRegistration).Assembly);
+                cfg.RegisterServicesFromAssemblies(typeof(ContractsAssemblyMarker).Assembly, typeof(ApplicationAssemblyMarker).Assembly);
             });
 
             builder.Services.AddControllers();
