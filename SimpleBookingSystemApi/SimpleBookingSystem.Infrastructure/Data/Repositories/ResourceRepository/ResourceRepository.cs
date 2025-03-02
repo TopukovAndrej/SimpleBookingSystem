@@ -11,8 +11,8 @@
     {
         public async Task<Result<Domain.Entities.Resources.Resource>> GetResourceByIdAsync(int resourceId)
         {
-            Resource? dbResource = await _dbContext.Resources.SingleOrDefaultAsync(predicate: x => !x.IsDeleted
-                                                                                                && x.Id == resourceId);
+            Resource? dbResource = await _dbContext.Resources.AsNoTracking().SingleOrDefaultAsync(predicate: x => !x.IsDeleted
+                                                                                                               && x.Id == resourceId);
 
             if (dbResource == null)
             {
@@ -24,9 +24,10 @@
 
         public async Task<Result<IReadOnlyList<Domain.Entities.Resources.Booking>>> GetExistingBookingsForResourceAsync(int resourceId)
         {
-            List<Booking> dbBookings = await _dbContext.Bookings.Where(predicate: x => !x.IsDeleted
-                                                                                    && x.ResourceFk == resourceId)
-                                                                .ToListAsync();
+            List<Booking> dbBookings = await _dbContext.Bookings.AsNoTracking().Where(predicate: x => !x.IsDeleted
+                                                                                                   && x.ResourceFk == resourceId)
+                                                                               .Include(x => x.Resource)
+                                                                               .ToListAsync();
 
             if (dbBookings.Count == 0)
             {

@@ -1,11 +1,11 @@
 ﻿namespace SimpleBookingSystem.Application.Commands.Resource
 {
     using MediatR;
+    using SimpleBookingSystem.Application.Commands.Email;
     using SimpleBookingSystem.Contracts.Models;
     using SimpleBookingSystem.Contracts.Requests.Resource;
     using SimpleBookingSystem.Domain.Common.Specifications;
     using SimpleBookingSystem.Domain.Entities.Resources;
-    using SimpleBookingSystem.Domain.Entities.Resources.ValueObjects;
     using SimpleBookingSystem.Infrastructure.Data.Repositories.ResourceRepository;
     using System.Threading;
     using System.Threading.Tasks;
@@ -20,7 +20,7 @@
         }
     }
 
-    public class BookResourceCommandHandler(IResourceRepository resourceRepository) : IRequestHandler<BookResourceCommand, Result>
+    public class BookResourceCommandHandler(IMediator mediator, IResourceRepository resourceRepository) : IRequestHandler<BookResourceCommand, Result>
     {
         public async Task<Result> Handle(BookResourceCommand command, CancellationToken cancellationToken)
         {
@@ -65,17 +65,20 @@
                 return Result.Failed(errorMessage: newBookingResult.ErrorMessage);
             }
 
-            Result<IReadOnlyList<Booking>> existingBookingsForResourceResult = await resourceRepository.GetExistingBookingsForResourceAsync(resourceId: resourceResult.Value.Id);
+            Result<IReadOnlyList<Booking>> existingBookingsResult = await resourceRepository.GetExistingBookingsForResourceAsync(resourceId: resourceResult.Value.Id);
 
-            if (existingBookingsForResourceResult.IsFailure)
+            if (existingBookingsResult.IsFailure)
             {
-                return Result.Failed(errorMessage: "Cannot book resource with quantity less than its total quantity!");
+                return Result.Failed(errorMessage: "Failed to fetch existing bookings for the resource!");
             }
 
-            if (existingBookingsForResourceResult.Value!.Count > 0)
+            if (existingBookingsResult.Value!.Count > 0)
             {
-                if (CheckIfRequestedBookingDurationOverlapsWithExistingDuration(newBookingDuration: newBookingResult.Value!.BookingDuration,
-                                                                                existingBookingDurations: existingBookingsForResourceResult.Value.Select(x => x.BookingDuration).ToList()))
+                var existingBookingDurationsForResource = existingBookingsResult.Value!.Select(selector: x => x.BookingDuration).ToList();
+
+                var bookingDurationOverlapSpecification = new BookingDurationOverlapSpecification(bookingDurations: existingBookingDurationsForResource);
+
+                if (bookingDurationOverlapSpecification.IsSatisfiedBy(bookingDuration: newBookingResult.Value!.BookingDuration))
                 {
                     return Result.Failed(errorMessage: "Cannot book resource, since requested booking dates overlap with existing ones!");
                 }
@@ -94,15 +97,9 @@
 
             await resourceRepository.SaveChangesAsync();
 
+            await mediator.Send(new SendEmailCommand(resourceId: resourceResult.Value.Id), cancellationToken);
+
             return Result.Success();
-        }
-
-        private static bool CheckIfRequestedBookingDurationOverlapsWithExistingDuration(BookingDuration newBookingDuration,
-                                                                                        IReadOnlyList<BookingDuration> existingBookingDurations)
-        {
-            var bookingDurationOverlapSpecification = new BookingDurationOverlapSpecification(bookingDurations: existingBookingDurations);
-
-            return bookingDurationOverlapSpecification.IsSatisfiedBy(bookingDuration: newBookingDuration);
         }
     }
 }

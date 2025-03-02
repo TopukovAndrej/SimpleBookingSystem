@@ -21,7 +21,7 @@
                        bookedQuantity: domainBooking.BookedQuantity,
                        fromDate: domainBooking.BookingDuration.FromDate,
                        toDate: domainBooking.BookingDuration.ToDate,
-                       resourceFk: domainBooking.BookingResource.ResourceId);
+                       resourceFk: domainBooking.BookingResource.Id);
         }
     }
 }

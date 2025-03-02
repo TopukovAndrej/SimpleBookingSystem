@@ -2,12 +2,12 @@
 {
     public class BookResourceRequest
     {
-        public int ResourceId { get; }
+        public int ResourceId { get; set; }
 
-        public int Quantity { get; }
+        public int Quantity { get; set; }
 
-        public DateTime FromDate { get; }
+        public DateTime FromDate { get; set; }
 
-        public DateTime ToDate { get; }
+        public DateTime ToDate { get; set; }
     }
 }

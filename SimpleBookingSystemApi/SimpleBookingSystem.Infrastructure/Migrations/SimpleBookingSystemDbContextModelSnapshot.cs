@@ -24,29 +24,28 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("BookedQuantity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INT");
 
                     b.Property<DateTime>("FromDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2(0)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("ResourceFk")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ResourceId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INT");
 
                     b.Property<DateTime>("ToDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2(0)");
 
                     b.Property<Guid>("Uid")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("UNIQUEIDENTIFIER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResourceId");
+                    b.HasIndex("ResourceFk");
 
                     b.ToTable("Bookings", (string)null);
                 });
@@ -58,17 +57,20 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(30)
+                        .HasColumnType("NVARCHAR");
 
                     b.Property<int>("TotalQuantity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INT");
 
                     b.Property<Guid>("Uid")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("UNIQUEIDENTIFIER");
 
                     b.HasKey("Id");
 
@@ -79,7 +81,7 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                 {
                     b.HasOne("SimpleBookingSystem.Infrastructure.Data.Models.Resource", "Resource")
                         .WithMany("Bookings")
-                        .HasForeignKey("ResourceId")
+                        .HasForeignKey("ResourceFk")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

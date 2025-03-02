@@ -1,5 +1,7 @@
 ﻿namespace SimpleBookingSystem.Infrastructure.Data.Models
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Booking
     {
         public int Id { get; internal set; }
@@ -14,6 +16,7 @@
 
         public DateTime ToDate { get; internal set; }
 
+        [ForeignKey("Resource")]
         public int ResourceFk { get; internal set; }
 
         public virtual Resource Resource { get; internal set; }

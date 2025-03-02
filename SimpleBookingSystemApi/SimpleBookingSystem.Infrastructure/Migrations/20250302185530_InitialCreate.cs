@@ -17,10 +17,10 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Uid = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    TotalQuantity = table.Column<int>(type: "INTEGER", nullable: false)
+                    Uid = table.Column<Guid>(type: "UNIQUEIDENTIFIER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false),
+                    Name = table.Column<string>(type: "NVARCHAR", maxLength: 30, nullable: false),
+                    TotalQuantity = table.Column<int>(type: "INT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,12 +33,12 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Uid = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    BookedQuantity = table.Column<int>(type: "INTEGER", nullable: false),
-                    FromDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ToDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ResourceFk = table.Column<int>(type: "INTEGER", nullable: false)
+                    Uid = table.Column<Guid>(type: "UNIQUEIDENTIFIER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false),
+                    BookedQuantity = table.Column<int>(type: "INT", nullable: false),
+                    FromDate = table.Column<DateTime>(type: "DATETIME2(0)", nullable: false),
+                    ToDate = table.Column<DateTime>(type: "DATETIME2(0)", nullable: false),
+                    ResourceFk = table.Column<int>(type: "INT", nullable: false)
                 },
                 constraints: table =>
                 {

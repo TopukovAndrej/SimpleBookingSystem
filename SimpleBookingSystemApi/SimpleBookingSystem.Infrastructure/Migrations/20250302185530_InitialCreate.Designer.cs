@@ -11,7 +11,7 @@ using SimpleBookingSystem.Infrastructure.Context;
 namespace SimpleBookingSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(SimpleBookingSystemDbContext))]
-    [Migration("20250302105422_InitialCreate")]
+    [Migration("20250302185530_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,31 +27,30 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("BookedQuantity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INT");
 
                     b.Property<DateTime>("FromDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2(0)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("ResourceFk")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ResourceId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INT");
 
                     b.Property<DateTime>("ToDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2(0)");
 
                     b.Property<Guid>("Uid")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("UNIQUEIDENTIFIER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResourceId");
+                    b.HasIndex("ResourceFk");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("SimpleBookingSystem.Infrastructure.Data.Models.Resource", b =>
@@ -61,28 +60,31 @@ namespace SimpleBookingSystem.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(30)
+                        .HasColumnType("NVARCHAR");
 
                     b.Property<int>("TotalQuantity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INT");
 
                     b.Property<Guid>("Uid")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("UNIQUEIDENTIFIER");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Resources");
+                    b.ToTable("Resources", (string)null);
                 });
 
             modelBuilder.Entity("SimpleBookingSystem.Infrastructure.Data.Models.Booking", b =>
                 {
                     b.HasOne("SimpleBookingSystem.Infrastructure.Data.Models.Resource", "Resource")
                         .WithMany("Bookings")
-                        .HasForeignKey("ResourceId")
+                        .HasForeignKey("ResourceFk")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

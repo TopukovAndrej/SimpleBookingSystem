@@ -46,6 +46,8 @@ namespace SimpleBookingSystem.API
 
             var app = builder.Build();
 
+            app.UseCors(policyName: "AllowLocalhostClient");
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -53,8 +55,6 @@ namespace SimpleBookingSystem.API
             }
 
             app.MapControllers();
-
-            app.UseCors(policyName: "AllowLocalhostClient");
 
             app.Run();
         }

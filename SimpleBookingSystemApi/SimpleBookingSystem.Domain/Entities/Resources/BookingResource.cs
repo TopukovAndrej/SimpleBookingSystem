@@ -2,14 +2,14 @@
 {
     public class BookingResource
     {
-        public int ResourceId { get; }
+        public int Id { get; }
 
-        public string ResourceName { get; }
+        public string Name { get; }
 
-        public BookingResource(int resourceId, string resourceName)
+        public BookingResource(int id, string name)
         {
-            ResourceId = resourceId;
-            ResourceName = resourceName;
+            Id = id;
+            Name = name;
         }
     }
 }

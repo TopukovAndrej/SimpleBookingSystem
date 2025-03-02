@@ -39,6 +39,6 @@ public class ResourceController(IMediator mediator) : ControllerBase
             return Ok();
         }
 
-        return BadRequest();
+        return BadRequest(commandResult.ErrorMessage);
     }
 }

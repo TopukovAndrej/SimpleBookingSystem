@@ -41,7 +41,7 @@
                 return Result<Booking>.Failed(errorMessage: bookingDurationResult.ErrorMessage);
             }
 
-            BookingResource bookingResource = new(resourceId: resourceId, resourceName: resourceName);
+            BookingResource bookingResource = new(id: resourceId, name: resourceName);
 
             return Result<Booking>.Success(value: new Booking(id: id,
                                                               uid: uid,
