@@ -41,7 +41,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(actual: result.IsFailure, expression: Is.True);
-                Assert.That(actual: result.ErrorMessage, expression: Is.EqualTo(expected: "Cannot book resource with a negative qunatity!"));
+                Assert.That(actual: result.ErrorMessage, expression: Is.EqualTo(expected: "Cannot book resource with a negative quantity!"));
             });
         }
     }

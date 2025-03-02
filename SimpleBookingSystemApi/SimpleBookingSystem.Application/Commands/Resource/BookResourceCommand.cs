@@ -26,7 +26,7 @@
         {
             if (command.Request.Quantity < 0)
             {
-                return Result.Failed(errorMessage: "Cannot book resource with a negative qunatity!");
+                return Result.Failed(errorMessage: "Cannot book resource with a negative quantity!");
             }
 
             if (command.Request.FromDate > command.Request.ToDate)
