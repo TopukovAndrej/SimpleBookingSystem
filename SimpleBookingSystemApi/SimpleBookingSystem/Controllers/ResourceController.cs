@@ -38,7 +38,20 @@ public class ResourceController(IMediator mediator) : ControllerBase
         {
             return Ok();
         }
-
-        return BadRequest(commandResult.ErrorMessage);
+        else
+        {
+            if (commandResult.ErrorMessage == "Failed to fetch existing bookings for the resource!")
+            {
+                return StatusCode(statusCode: 500, value: commandResult.ErrorMessage);
+            }
+            else if (commandResult.ErrorMessage!.Contains("not found!"))
+            {
+                return NotFound(value: commandResult.ErrorMessage);
+            }
+            else
+            {
+                return BadRequest(error: commandResult.ErrorMessage);
+            }
+        }
     }
 }
