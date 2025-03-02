@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { IResource } from '../../interfaces/resource.interface';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BookResourceModalComponent } from '../book-resource-modal/book-resource-modal.component';
 
 @Component({
   selector: 'app-resource-list',
@@ -40,7 +42,12 @@ export class ResourceListComponent {
 
   public columnNames: string[] = ['id', 'name', 'book'];
 
-  public bookResource(resource: IResource): void {
-    console.log('I can book');
+  constructor(private readonly dialog: MatDialog) {}
+
+  public openBookResourceModal(resourceName: string): void {
+    const dialogRef: MatDialogRef<BookResourceModalComponent> =
+      this.dialog.open(BookResourceModalComponent, {
+        data: { resourceName: resourceName },
+      });
   }
 }
