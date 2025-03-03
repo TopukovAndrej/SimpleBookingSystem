@@ -97,7 +97,12 @@
 
             await resourceRepository.SaveChangesAsync();
 
-            await mediator.Send(new SendEmailCommand(resourceId: resourceResult.Value.Id), cancellationToken);
+            Result emailSentResult = await mediator.Send(new SendEmailCommand(resourceId: resourceResult.Value.Id), cancellationToken);
+
+            if (emailSentResult.IsFailure)
+            {
+                Console.WriteLine(value: "Email was not sent!");
+            }
 
             return Result.Success();
         }

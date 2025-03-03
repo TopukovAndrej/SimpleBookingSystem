@@ -2,6 +2,7 @@
 {
     using SimpleBookingSystem.Domain.Common.Interfaces;
     using SimpleBookingSystem.Domain.Entities.Resources.ValueObjects;
+    using System.Linq.Expressions;
 
     public class BookingDurationOverlapSpecification : ISpecification<BookingDuration>
     {
@@ -14,8 +15,7 @@
 
         public bool IsSatisfiedBy(BookingDuration bookingDuration)
         {
-            return _bookingDurations.Any(predicate: x => x.FromDate >= bookingDuration.FromDate
-                                                      || x.ToDate <= bookingDuration.ToDate);
+            return _bookingDurations.Any(predicate: x => x.FromDate < bookingDuration.ToDate && x.ToDate > bookingDuration.FromDate);
         }
     }
 }

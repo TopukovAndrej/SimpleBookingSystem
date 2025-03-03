@@ -91,8 +91,8 @@ export class ResourceListComponent implements OnInit, OnDestroy {
 
   private showMessage(
     message: string,
-    action: string = 'Success',
-    duration: number = 3000
+    action: string,
+    duration: number = 4000
   ) {
     this.snackBar.open(message, action, {
       duration: duration,
