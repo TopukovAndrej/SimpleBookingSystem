@@ -2,7 +2,6 @@
 {
     using SimpleBookingSystem.Domain.Common.Interfaces;
     using SimpleBookingSystem.Domain.Entities.Resources.ValueObjects;
-    using System.Linq.Expressions;
 
     public class BookingDurationOverlapSpecification : ISpecification<BookingDuration>
     {
