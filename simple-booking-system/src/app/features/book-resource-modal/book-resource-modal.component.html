@@ -33,13 +33,14 @@
         quantity is invalid</mat-error>
       <div class="form-control-input">
         <label for="quantity">Quantity</label>
-        <input class="quantity-input" type="number" formControlName="quantity" placeholder="Quantity" min="0" max="100">
+        <input class="quantity-input" type="number" formControlName="quantity" placeholder="Quantity" min="1" max="100">
       </div>
     </div>
 
     <mat-dialog-actions>
       <button type="button" mat-button (click)="closeModal()">Cancel</button>
-      <button mat-flat-button color="primary" type="submit" [disabled]="bookResourceForm.invalid">Book</button>
+      <button mat-flat-button color="primary" type="submit" (click)="requestResourceBooking()"
+        [disabled]="this.bookResourceForm.invalid">Book</button>
     </mat-dialog-actions>
   </mat-dialog-content>
 </form>
