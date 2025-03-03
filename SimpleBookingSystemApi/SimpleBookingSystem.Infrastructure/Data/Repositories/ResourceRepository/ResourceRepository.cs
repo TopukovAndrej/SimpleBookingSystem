@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using SimpleBookingSystem.Contracts.Models;
+    using SimpleBookingSystem.Infrastructure.Common.Specifications;
     using SimpleBookingSystem.Infrastructure.Context;
     using SimpleBookingSystem.Infrastructure.Data.Models;
     using SimpleBookingSystem.Infrastructure.Mappers;
@@ -22,19 +23,12 @@
             return Result<Domain.Entities.Resources.Resource>.Success(DataToDomainMapper.MapResourceDataToDomain(dbResource: dbResource));
         }
 
-        public async Task<Result<IReadOnlyList<Domain.Entities.Resources.Booking>>> GetExistingBookingsForResourceAsync(int resourceId)
+        public async Task<bool> CheckIfBookingDurationOverlapsWithExistingBookingDurationsAsync(int resourceId,
+                                                                                                BookingDurationOverlapSpecification specification)
         {
-            List<Booking> dbBookings = await _dbContext.Bookings.AsNoTracking().Where(predicate: x => !x.IsDeleted
-                                                                                                   && x.ResourceFk == resourceId)
-                                                                               .Include(x => x.Resource)
-                                                                               .ToListAsync();
-
-            if (dbBookings.Count == 0)
-            {
-                return Result<IReadOnlyList<Domain.Entities.Resources.Booking>>.Success(value: []);
-            }
-
-            return DataToDomainMapper.MapBookingsDataToDomain(dbBookings: dbBookings);
+            return await _dbContext.Bookings.Where(predicate: x => !x.IsDeleted && x.ResourceFk == resourceId)
+                                            .Where(predicate: specification.IsSatisfiedExpression())
+                                            .AnyAsync();
         }
 
         public void UpdateResource(Domain.Entities.Resources.Resource resource)

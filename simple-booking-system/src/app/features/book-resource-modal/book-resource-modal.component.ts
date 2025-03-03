@@ -68,7 +68,7 @@ export class BookResourceModalComponent implements OnInit {
       toDate: ['', Validators.required],
       quantity: [
         '',
-        [Validators.required, Validators.min(0), Validators.max(100)],
+        [Validators.required, Validators.min(1), Validators.max(100)],
       ],
     });
   }
